@@ -11,26 +11,29 @@ class UdaciList
   def add(type, description, options={})
     validate_type(type = type.downcase)
 
-    @items.push TodoItem.new(description, options) if type == 'todo'
-    @items.push EventItem.new(description, options) if type == 'event'
-    @items.push LinkItem.new(description, options) if type == 'link'
+    items.push TodoItem.new(description, options) if type == 'todo'
+    items.push EventItem.new(description, options) if type == 'event'
+    items.push LinkItem.new(description, options) if type == 'link'
   end
 
   def delete(index)
     validate_delete_item(index)
-    @items.delete_at(index - 1)
+    items.delete_at(index - 1)
   end
 
   def all
-    puts '-' * @title.length
-    puts @title
-    puts '-' * @title.length
-    @items.each_with_index do |item, position|
+    puts "#{separator}\n#{title}\n#{separator}"
+
+    items.each_with_index do |item, position|
       puts "#{position + 1}) #{item.details}"
     end
   end
 
   private
+
+  def separator
+    @separator ||= '-' * title.length
+  end
 
   def validate_type(item_type)
     message = "'#{item_type}' is not supported type."
@@ -39,6 +42,6 @@ class UdaciList
 
   def validate_delete_item(index)
     message = "Index '#{index}' is out of range."
-    raise UdaciListErrors::IndexExceedsListSize, message unless @items.size >= index
+    raise UdaciListErrors::IndexExceedsListSize, message unless items.size >= index
   end
 end
