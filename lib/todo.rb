@@ -16,6 +16,10 @@ class TodoItem
     format_description(description, type) + details_for_table
   end
 
+  def change_priority(name)
+    validate_and_assign_priority(name)
+  end
+
   def details_for_table
     'due: ' + (@due ? format_date(@due) : 'No due date') + format_priority(@priority)
   end

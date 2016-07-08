@@ -15,7 +15,7 @@ class UdaciList
   end
 
   def delete(index)
-    validate_delete_item(index)
+    validate_item_index(index)
     items.delete_at(index - 1)
   end
 
@@ -28,6 +28,12 @@ class UdaciList
   def filter(item_type, print_table: false)
     return alert_nonexisting_filter(item_type) unless ALLOWED_ITEM_TYPES.include?(item_type)
     all(filter_items: item_type, print_table: print_table)
+  end
+
+  def change_priority(index, name)
+    validate_item_index(index)
+    item = items.at(index - 1)
+    item.type == 'todo' && item.change_priority(name)
   end
 
   private
@@ -68,7 +74,7 @@ class UdaciList
     raise UdaciListErrors::InvalidItemType, message unless ALLOWED_ITEM_TYPES.include?(item_type)
   end
 
-  def validate_delete_item(index)
+  def validate_item_index(index)
     message = "Index '#{index}' is out of range."
     raise UdaciListErrors::IndexExceedsListSize, message unless items.size >= index
   end

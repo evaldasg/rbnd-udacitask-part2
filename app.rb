@@ -18,6 +18,7 @@ list.add('event', 'Birthday Party', start_date: '2016-05-08')
 list.add('event', 'Vacation', start_date: '2016-05-28', end_date: '2016-05-31')
 list.add('link', 'https://github.com', site_name: 'GitHub Homepage')
 list.all
+# list.change_priority(1, 'high') # this changes priority (raises if index out of range, and priority not allowed)
 list.delete(3)
 list.all
 
