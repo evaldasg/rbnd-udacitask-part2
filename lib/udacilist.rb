@@ -11,7 +11,7 @@ class UdaciList
   def add(type, description, options={})
     validate_type(type = type.downcase)
 
-    items.push Object.const_get(type.capitalize + 'Item').new(description, options)
+    items.push Object.const_get(type.capitalize + 'Item').new(description, options.merge(type: type))
   end
 
   def delete(index)

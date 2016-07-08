@@ -1,6 +1,6 @@
 module Listable
-  def format_description(description)
-    description.to_s.ljust(25)
+  def format_description(description, type)
+    "#{type.capitalize}: #{description}".ljust(25)
   end
 
   # Takes in either 1 or 2 dates

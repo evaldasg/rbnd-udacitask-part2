@@ -3,16 +3,17 @@ class TodoItem
 
   ALLOWED_PRIORITIES = %w(low medium high).freeze
 
-  attr_reader :description, :due, :priority
+  attr_reader :description, :due, :priority, :type
 
   def initialize(description, options={})
     @description = description
+    @type = options[:type]
     @due = options[:due] ? Chronic.parse(options[:due]) : options[:due]
     validate_and_assign_priority(options[:priority]) if options[:priority]
   end
 
   def details
-    format_description(@description) + 'due: ' +
+    format_description(description, type) + 'due: ' +
       (@due ? format_date(@due) : 'No due date') +
       format_priority(@priority)
   end
