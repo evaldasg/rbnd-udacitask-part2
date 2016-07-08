@@ -11,9 +11,7 @@ class UdaciList
   def add(type, description, options={})
     validate_type(type = type.downcase)
 
-    items.push TodoItem.new(description, options) if type == 'todo'
-    items.push EventItem.new(description, options) if type == 'event'
-    items.push LinkItem.new(description, options) if type == 'link'
+    items.push Object.const_get(type.capitalize + 'Item').new(description, options)
   end
 
   def delete(index)
