@@ -1,13 +1,18 @@
 # What you added to Udacitask 2.0
 # -------------------------------------------------------
 1. What is the gem of your choice and how did you use it?
+Terminal-table: used to print items in table style
 2. Describe the 2 features you added to the project.
-  a) Feature 1...
-  b) Feature 2...
+  a) Add feature to print in table style
+  b) Add feature to change_priority
 
 # REFLECTIONS
 # -------------------------------------------------------
 1. How long did you spend working on this project?
+4-5 hours.
 2. What was the most rewarding challenge you conquered?
+None.
 3. What two additional features did you build? Why?
+See line 5. Why? I love beautiful design, so table looks realy great. Who won't to change priority? :)
 4. Where do you still have room to grow?
+Add more stuff, like email alerts (so more 'net' class study).
