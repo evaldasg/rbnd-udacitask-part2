@@ -19,19 +19,30 @@ class UdaciList
     items.delete_at(index - 1)
   end
 
-  def all
+  def all(filter_items: nil)
     puts "#{separator}\n#{title}\n#{separator}"
 
-    items.each_with_index do |item, position|
+    view_items = filter_items ? find_by_type(filter_items) : items
+
+    view_items.each_with_index do |item, position|
       puts "#{position + 1}) #{item.details}"
     end
   end
 
   def filter(item_type)
-    items.select { |item| item.type == item_type }
+    alert_nonexisting_filter(item_type) unless ALLOWED_ITEM_TYPES.include?(item_type)
+    all(filter_items: item_type)
   end
 
   private
+
+  def find_by_type(item_type)
+    items.select { |item| item.type == item_type }
+  end
+
+  def alert_nonexisting_filter(item_type)
+    puts "'#{item_type}' is not supported."
+  end
 
   def separator
     @separator ||= '-' * title.length
