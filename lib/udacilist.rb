@@ -27,6 +27,10 @@ class UdaciList
     end
   end
 
+  def filter(item_type)
+    items.select { |item| item.type == item_type }
+  end
+
   private
 
   def separator
