@@ -1,4 +1,6 @@
 class UdaciList
+  ALLOWED_ITEM_TYPES = %w(todo event link).freeze
+
   attr_reader :title, :items
 
   def initialize(options={})
@@ -7,7 +9,8 @@ class UdaciList
   end
 
   def add(type, description, options={})
-    type = type.downcase
+    validate_type(type = type.downcase)
+
     @items.push TodoItem.new(description, options) if type == 'todo'
     @items.push EventItem.new(description, options) if type == 'event'
     @items.push LinkItem.new(description, options) if type == 'link'
@@ -24,5 +27,12 @@ class UdaciList
     @items.each_with_index do |item, position|
       puts "#{position + 1}) #{item.details}"
     end
+  end
+
+  private
+
+  def validate_type(item_type)
+    message = "'#{item_type}' is not supported type."
+    raise UdaciListErrors::InvalidItemType, message unless ALLOWED_ITEM_TYPES.include?(item_type)
   end
 end
