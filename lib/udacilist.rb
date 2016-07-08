@@ -17,6 +17,7 @@ class UdaciList
   end
 
   def delete(index)
+    validate_delete_item(index)
     @items.delete_at(index - 1)
   end
 
@@ -34,5 +35,10 @@ class UdaciList
   def validate_type(item_type)
     message = "'#{item_type}' is not supported type."
     raise UdaciListErrors::InvalidItemType, message unless ALLOWED_ITEM_TYPES.include?(item_type)
+  end
+
+  def validate_delete_item(index)
+    message = "Index '#{index}' is out of range."
+    raise UdaciListErrors::IndexExceedsListSize, message unless @items.size >= index
   end
 end
