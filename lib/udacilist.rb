@@ -30,7 +30,7 @@ class UdaciList
   end
 
   def filter(item_type)
-    alert_nonexisting_filter(item_type) unless ALLOWED_ITEM_TYPES.include?(item_type)
+    return alert_nonexisting_filter(item_type) unless ALLOWED_ITEM_TYPES.include?(item_type)
     all(filter_items: item_type)
   end
 
@@ -41,7 +41,7 @@ class UdaciList
   end
 
   def alert_nonexisting_filter(item_type)
-    puts "'#{item_type}' is not supported."
+    puts "Filter with item type: '#{item_type}' is not supported."
   end
 
   def separator
