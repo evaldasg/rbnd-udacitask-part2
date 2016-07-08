@@ -19,22 +19,37 @@ class UdaciList
     items.delete_at(index - 1)
   end
 
-  def all(filter_items: nil)
-    puts "#{separator}\n#{title}\n#{separator}"
-
+  def all(filter_items: nil, print_table: false)
     view_items = filter_items ? find_by_type(filter_items) : items
 
+    print_table ? print_in_table(view_items) : print_in_list(view_items)
+  end
+
+  def filter(item_type, print_table: false)
+    return alert_nonexisting_filter(item_type) unless ALLOWED_ITEM_TYPES.include?(item_type)
+    all(filter_items: item_type, print_table: print_table)
+  end
+
+  private
+
+  def print_in_list(view_items)
+    puts "#{separator}\n#{title}\n#{separator}"
     view_items.each_with_index do |item, position|
       puts "#{position + 1}) #{item.details}"
     end
   end
 
-  def filter(item_type)
-    return alert_nonexisting_filter(item_type) unless ALLOWED_ITEM_TYPES.include?(item_type)
-    all(filter_items: item_type)
+  def print_in_table(view_items)
+    table = Terminal::Table.new do |t|
+      t.style.all_separators = true
+      t.title = title.to_s.colorize(color: :red, mode: :bold)
+      t.headings = %w(# Type Description Details).map { |h| h.colorize(color: :magenta, mode: :bold) }
+      view_items.each_with_index do |item, position|
+        t.add_row [position + 1, item.type, item.description, item.details_for_table]
+      end
+    end
+    puts table
   end
-
-  private
 
   def find_by_type(item_type)
     items.select { |item| item.type == item_type }

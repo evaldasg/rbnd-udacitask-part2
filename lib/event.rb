@@ -11,7 +11,10 @@ class EventItem
   end
 
   def details
-    format_description(description, type) + 'event dates: ' +
-      (@start_date ? format_date(@start_date, @end_date) : 'N/A')
+    format_description(description, type) + details_for_table
+  end
+
+  def details_for_table
+    'event dates: ' + (@start_date ? format_date(@start_date, @end_date) : 'N/A')
   end
 end

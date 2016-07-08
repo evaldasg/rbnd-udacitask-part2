@@ -13,9 +13,11 @@ class TodoItem
   end
 
   def details
-    format_description(description, type) + 'due: ' +
-      (@due ? format_date(@due) : 'No due date') +
-      format_priority(@priority)
+    format_description(description, type) + details_for_table
+  end
+
+  def details_for_table
+    'due: ' + (@due ? format_date(@due) : 'No due date') + format_priority(@priority)
   end
 
   private

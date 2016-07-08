@@ -9,10 +9,11 @@ class LinkItem
     @type = options[:type]
   end
 
-  def format_name
-    @site_name ? @site_name : ""
-  end
   def details
-    format_description(description, type) + "site name: " + format_name
+    format_description(description, type) + details_for_table
+  end
+
+  def details_for_table
+    'site name: ' + site_name.to_s
   end
 end
